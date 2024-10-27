@@ -4,6 +4,7 @@
  */
 package DAO;
 
+import Model.HoaDon376;
 import Model.TaiLieuNhap376;
 import java.util.ArrayList;
 import java.sql.*;
@@ -17,13 +18,13 @@ public class TaiLieuNhap376DAO extends DAO{
     public TaiLieuNhap376DAO() throws Exception {
     }
     
-    public ArrayList<TaiLieuNhap376> getTaiLieuNhap(int idHoaDon) throws SQLException{
+    public ArrayList<TaiLieuNhap376> getTaiLieuNhap(HoaDon376 hoaDon) throws SQLException{
         
         ArrayList<TaiLieuNhap376> listTaiLieuNhap = new ArrayList<>();
         
         String query = "EXEC getTaiLieuNhap ?";
         PreparedStatement ps = this.getConnection().prepareStatement(query);
-        ps.setInt(1, idHoaDon);
+        ps.setInt(1, hoaDon.getId());
         
         ResultSet rs = ps.executeQuery();
         

@@ -1,4 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page import="javax.servlet.http.HttpSession" %>
+<%@ page import="Model.NguoiDung376" %>
+<%@ page import="DAO.LoginDAO" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -13,17 +16,6 @@
                 height: 100vh;
                 margin: 0;
                 background-color: #f4f4f4;
-            }
-            .navbar {
-                position: absolute;
-                top: 10px;
-                right: 10px;
-            }
-            .navbar a {
-                text-decoration: none;
-                color: #333;
-                margin-left: 0px;
-                font-weight: bold;
             }
             .content {
                 text-align: center;
@@ -72,12 +64,39 @@
     <body>
         <div class="content">
             <h2>Login</h2>
-            <form action="LoginController" method="post">
+            <form action="" method="post">
                 <input type="text" name="username" placeholder="Username" required/>
                 <input type="password" name="password" placeholder="Password" required/>
                 <input type="submit" value="Login"/>
             </form>
-            <p><%= request.getParameter("error") != null ? request.getParameter("error") : "" %></p>
+
+            <!-- Handling login logic within JSP -->
+            <%
+                String error = "";
+                if ("POST".equalsIgnoreCase(request.getMethod())) {
+                    String username = request.getParameter("username");
+                    String password = request.getParameter("password");
+                    
+                    NguoiDung376 userDangNhap = new NguoiDung376(username, password);
+                    NguoiDung376 nguoiDung = new LoginDAO().checkLogin(userDangNhap);
+
+                    if (nguoiDung != null) {
+                        session.setAttribute("user", nguoiDung);
+
+                        String role = nguoiDung.getVaiTro();
+                        if ("QuanLy".equals(role)) {
+                            response.sendRedirect("QuanLy376/GDChinhQuanLy376.jsp");
+                        } else {
+                            response.sendRedirect("BanDoc376/GDChinhBanDoc376.jsp");
+                        }
+                    } else {
+                        error = "Invalid username or password";
+                    }
+                }
+            %>
+
+            <!-- Display error message -->
+            <p><%= error %></p>
         </div>
     </body>
 </html>

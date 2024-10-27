@@ -1,3 +1,6 @@
+<%@page import="DAO.TaiLieuNhap376DAO"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="Model.NguoiDung376"%>
 <%@page import="java.text.DecimalFormat"%>
 <%@page import="java.text.NumberFormat"%>
 <%@page import="java.util.Locale"%>
@@ -113,20 +116,54 @@
             font-size: 18px;
             font-weight: bold;
         }
+        .logout {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        .logout a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+            font-size: 16px;
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #007bff;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .logout a:hover {
+            background-color: #007bff;
+            color: #fff;
+        }
     </style>
 </head>
 <body>
 
 <%
-    HoaDon376 hoaDon = (HoaDon376)session.getAttribute("hoaDon");
+    NguoiDung376 user = (NguoiDung376)session.getAttribute("user");
+    if(user == null){
+        response.sendRedirect("/BTL/Home.jsp");
+    }
+    else if (!user.getVaiTro().equals("QuanLy")){
+        response.sendRedirect("/BTL/Home.jsp");
+    }
+    int idHoaDon = Integer.parseInt(request.getParameter("id"));
+    int lanNhap = Integer.parseInt(request.getParameter("lanNhap"));
+    String ngayNhap = request.getParameter("ngayNhap");
+    session.setAttribute("lanNhap", lanNhap);
+    HoaDon376 hoaDon = (HoaDon376)session.getAttribute("hoaDon" + idHoaDon);
     if(hoaDon == null)
     {
         response.sendRedirect("/BTL/Home.jsp");
     }
     else {
-        int lanNhap = Integer.parseInt(session.getAttribute("lanNhap").toString());
+        ArrayList<TaiLieuNhap376> listTaiLieuNhap = new TaiLieuNhap376DAO().getTaiLieuNhap(hoaDon);
+        hoaDon.setListTaiLieuNhap(listTaiLieuNhap);
 %>
-    
+<div class="logout">
+        <a href="/BTL/Logout.jsp">Logout</a>
+</div>
 <div class="container">
     <h2>Hóa Đơn Chi Tiết Lần Nhập</h2>
 
@@ -169,7 +206,6 @@
         </thead>
         <tbody>
             <%
-                List<TaiLieuNhap376> listTaiLieuNhap = hoaDon.getListTaiLieuNhap();
                 DecimalFormat df = new DecimalFormat("#,###.00");
                 if (listTaiLieuNhap != null && !listTaiLieuNhap.isEmpty()) {
                     for (TaiLieuNhap376 taiLieuNhap : listTaiLieuNhap) {

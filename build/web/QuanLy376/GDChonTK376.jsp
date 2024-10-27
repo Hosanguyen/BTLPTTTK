@@ -1,3 +1,7 @@
+<%@page import="DAO.TKNCC376DAO"%>
+<%@page import="Model.TKNCC376"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="Model.NguoiDung376"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -76,14 +80,37 @@
         .form-container form {
             width: 100%;
         }
+        .logout {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        .logout a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+            font-size: 16px;
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #007bff;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .logout a:hover {
+            background-color: #007bff;
+            color: #fff;
+        }
     </style>
 </head>
 <body>
 
+<div class="logout">
+    <a href="/BTL/Logout.jsp">Logout</a>
+</div>
 <div class="form-container">
     <h2>Chọn Thống Kê</h2>
 
-    <form action="..\\TKNCC376Controller" method="post">
+    <form action="GDTKNCC376.jsp" method="post">
         <label for="loaiThongKe">Loại Thống Kê:</label>
         <select id="loaiThongKe" name="loaiThongKe" required>
             <option value="">-- Chọn loại thống kê --</option>
@@ -98,6 +125,25 @@
 
         <button type="submit">Xem Thống Kê</button>
     </form>
+    <%
+//        if("POST".equalsIgnoreCase(request.getMethod())){
+//            String ngayBatDauStr = request.getParameter("ngayBatDau");
+//            String ngayKetThucStr = request.getParameter("ngayKetThuc");
+//            session.setAttribute("ngayBatDau", ngayBatDauStr);
+//            session.setAttribute("ngayKetThuc", ngayKetThucStr);
+//            
+//            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//            java.util.Date utilNgayBatDau = dateFormat.parse(ngayBatDauStr);  
+//            java.sql.Date ngayBatDau = new java.sql.Date(utilNgayBatDau.getTime());  
+//
+//            java.util.Date utilNgayKetThuc= dateFormat.parse(ngayKetThucStr);  
+//            java.sql.Date ngayKetThuc = new java.sql.Date(utilNgayKetThuc.getTime());  
+//                        
+//            ArrayList<TKNCC376> listTKNCC = new TKNCC376DAO().getTKNCC(ngayBatDau, ngayKetThuc);
+//            session.setAttribute("listTKNCC", listTKNCC);
+//            response.sendRedirect("GDTKNCC376.jsp");
+//        }
+    %>
 </div>
 </body>
 <%

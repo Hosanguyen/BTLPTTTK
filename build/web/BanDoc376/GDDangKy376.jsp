@@ -1,3 +1,6 @@
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="DAO.TheBanDoc376DAO"%>
+<%@page import="Model.TheBanDoc376"%>
 <%@page import="java.util.Calendar"%>
 <%@page import="Model.NguoiDung376"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -53,6 +56,26 @@
         .submit-btn:hover {
             background-color: #218838;
         }
+        .logout {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        .logout a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+            font-size: 16px;
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #007bff;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .logout a:hover {
+            background-color: #007bff;
+            color: #fff;
+        }
     </style>
 </head>
 <body>
@@ -61,7 +84,14 @@
     // Lấy dữ liệu từ session
     NguoiDung376 user = (NguoiDung376) session.getAttribute("user");
     if(user == null){
-    response.sendRedirect("/BTL/Home.jsp");
+        response.sendRedirect("/BTL/Home.jsp");
+    }
+    else {
+%>
+        <div class="logout">
+            <a href="/BTL/Logout.jsp">Logout</a>
+        </div>
+<%
     }
     String hoTen = user != null ? user.getHoTen() : "";
     String maBanDoc = user != null ? Integer.toString( user.getId()): "";
@@ -83,7 +113,7 @@
 <div class="form-container">
     <h1>Thông tin Bạn Đọc</h1>
     
-    <form action="..\\DangKy376Controller" method="post">
+    <form action="" method="post">
         <div class="form-group">
             <label for="hoTen">Họ tên:</label>
             <input type="text" id="hoTen" name="hoTen" value="<%= hoTen != null ? hoTen : "" %>" required>
@@ -111,8 +141,32 @@
 
         <input type="submit" class="submit-btn" value="Lưu thông tin">
     </form>
-            <p><%= request.getParameter("message") != null && request.getParameter("message").equals("exist") ? "Đã có thẻ bạn đọc" : "" %></p>
-            <p><%= request.getParameter("message") != null && request.getParameter("message").equals("success") ? "Đăng ký thành công" : "" %></p>
+        <%
+            String error = "";
+            if("POST".equalsIgnoreCase(request.getMethod())){
+                TheBanDoc376DAO theBanDocDAO = new TheBanDoc376DAO();
+                if(theBanDocDAO.checkTheBanDoc(user)){
+                    error = "Đã có thẻ bạn đọc";
+                } 
+                else {
+                    String ngayDangKyStr = request.getParameter("ngayDangKy");
+                    String ngayHetHanStr = request.getParameter("ngayHetHan");
+
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+                    java.util.Date utilNgayDangKy = dateFormat.parse(ngayDangKyStr);  
+                    java.sql.Date ngayDangKyThe = new java.sql.Date(utilNgayDangKy.getTime());  
+
+                    java.util.Date utilNgayHetHan = dateFormat.parse(ngayHetHanStr);  
+                    java.sql.Date ngayHetHanThe = new java.sql.Date(utilNgayHetHan.getTime());  
+
+                    TheBanDoc376 newTheBanDoc = new TheBanDoc376(Integer.parseInt(request.getParameter("maBanDoc")), request.getParameter("hoTen"), request.getParameter("diaChi"), ngayDangKyThe, ngayHetHanThe);
+                    theBanDocDAO.luuDangKy(newTheBanDoc);
+                    error = "Đăng ký thành công";
+                }
+            }
+        %>
+            <p><%= error %> </p>
 </div>
 
 </body>

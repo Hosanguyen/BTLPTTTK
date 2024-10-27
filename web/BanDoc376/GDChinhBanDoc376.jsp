@@ -6,6 +6,13 @@
     if(session.getAttribute("user") == null){
         response.sendRedirect("/BTL/Home.jsp");
     }
+    else {
+    %>
+        <div class="logout">
+            <a href="/BTL/Logout.jsp">Logout</a>
+        </div>
+        <%
+    }
 %>
 <head>
     <title>GD Chính Bạn Đọc</title>
@@ -45,6 +52,26 @@
         }
         a:hover {
             background-color: #0056b3;
+        }
+        .logout {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        .logout a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+            font-size: 16px;
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #007bff;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .logout a:hover {
+            background-color: #007bff;
+            color: #fff;
         }
     </style>
 </head>

@@ -16,12 +16,12 @@ public class LoginDAO extends DAO{
     public LoginDAO() throws Exception {
     }
     
-    public NguoiDung376 checkLogin(String tenTaiKhoan, String matKhau)throws SQLException{
+    public NguoiDung376 checkLogin(NguoiDung376 user)throws SQLException{
         
         String query = "SELECT * FROM tblNguoiDung376 WHERE tenDangNhap = ? AND matKhau = ?";
         PreparedStatement ps = this.getConnection().prepareStatement(query);
-        ps.setString(1, tenTaiKhoan);
-        ps.setString(2, matKhau);
+        ps.setString(1, user.getTenDangNhap());
+        ps.setString(2, user.getMatKhau());
         
         ResultSet rs = ps.executeQuery();
         
@@ -32,7 +32,7 @@ public class LoginDAO extends DAO{
             String diaChi = rs.getString("diaChi");
             String vaiTro = rs.getString("vaiTro");
             String sdt = rs.getString("soDienThoai");
-            return new NguoiDung376(id, tenTaiKhoan, matKhau, hoTen, sdt, email, diaChi, vaiTro);
+            return new NguoiDung376(id, user.getTenDangNhap(), user.getMatKhau(), hoTen, sdt, email, diaChi, vaiTro);
         }
         return null;
     }
