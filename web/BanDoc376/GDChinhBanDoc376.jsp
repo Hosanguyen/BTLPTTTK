@@ -4,12 +4,12 @@
 <html>
 <%
     if(session.getAttribute("user") == null){
-        response.sendRedirect("/BTL/Home.jsp");
+        response.sendRedirect("/BTL/NguoiDung376/Home.jsp");
     }
     else {
     %>
         <div class="logout">
-            <a href="/BTL/Logout.jsp">Logout</a>
+            <a href="/BTL/NguoiDung376/Logout.jsp">Logout</a>
         </div>
         <%
     }

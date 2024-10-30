@@ -143,13 +143,14 @@
 <%
     NguoiDung376 user = (NguoiDung376) session.getAttribute("user");
     if(user == null){
-        response.sendRedirect("/BTL/Home.jsp");
+        response.sendRedirect("/BTL/NguoiDung376/Home.jsp");
     }
     else if(!user.getVaiTro().equals("QuanLy")){
-        response.sendRedirect("/BTL/Home.jsp");
+        response.sendRedirect("/BTL/NguoiDung376/Home.jsp");
     }
-    String ngayBatDauStr = session.getAttribute("ngayBatDau").toString();
-    String ngayKetThucStr = session.getAttribute("ngayKetThuc").toString();
+    String ngayBatDauStr = session.getAttribute("ngayBatDau") != null ? session.getAttribute("ngayBatDau").toString() : "";
+    String ngayKetThucStr = session.getAttribute("ngayKetThuc") != null ? session.getAttribute("ngayKetThuc").toString() : "";
+
     if("POST".equalsIgnoreCase(request.getMethod())){
         ngayBatDauStr = request.getParameter("ngayBatDau");
         ngayKetThucStr = request.getParameter("ngayKetThuc");
@@ -169,7 +170,7 @@
 %>
 <body>
 <div class="logout">
-    <a href="/BTL/Logout.jsp">Logout</a>
+    <a href="/BTL/NguoiDung376/Logout.jsp">Logout</a>
 </div>
 <div class="container">
     <h2>Thống Kê Nhà Cung Cấp</h2>

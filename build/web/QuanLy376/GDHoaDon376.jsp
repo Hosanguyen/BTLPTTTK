@@ -143,10 +143,10 @@
 <%
     NguoiDung376 user = (NguoiDung376)session.getAttribute("user");
     if(user == null){
-        response.sendRedirect("/BTL/Home.jsp");
+        response.sendRedirect("/BTL/NguoiDung376/Home.jsp");
     }
     else if (!user.getVaiTro().equals("QuanLy")){
-        response.sendRedirect("/BTL/Home.jsp");
+        response.sendRedirect("/BTL/NguoiDung376/Home.jsp");
     }
     int idHoaDon = Integer.parseInt(request.getParameter("id"));
     int lanNhap = Integer.parseInt(request.getParameter("lanNhap"));
@@ -155,14 +155,14 @@
     HoaDon376 hoaDon = (HoaDon376)session.getAttribute("hoaDon" + idHoaDon);
     if(hoaDon == null)
     {
-        response.sendRedirect("/BTL/Home.jsp");
+        response.sendRedirect("/BTL/NguoiDung376/Home.jsp");
     }
     else {
         ArrayList<TaiLieuNhap376> listTaiLieuNhap = new TaiLieuNhap376DAO().getTaiLieuNhap(hoaDon);
         hoaDon.setListTaiLieuNhap(listTaiLieuNhap);
 %>
 <div class="logout">
-        <a href="/BTL/Logout.jsp">Logout</a>
+        <a href="/BTL/NguoiDung376/Logout.jsp">Logout</a>
 </div>
 <div class="container">
     <h2>Hóa Đơn Chi Tiết Lần Nhập</h2>

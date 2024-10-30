@@ -84,12 +84,12 @@
     // Lấy dữ liệu từ session
     NguoiDung376 user = (NguoiDung376) session.getAttribute("user");
     if(user == null){
-        response.sendRedirect("/BTL/Home.jsp");
+        response.sendRedirect("/BTL/NguoiDung376/Home.jsp");
     }
     else {
 %>
         <div class="logout">
-            <a href="/BTL/Logout.jsp">Logout</a>
+            <a href="/BTL/NguoiDung376/Logout.jsp">Logout</a>
         </div>
 <%
     }
@@ -139,7 +139,7 @@
             <input type="date" id="ngayHetHan" name="ngayHetHan" value="<%= ngayHetHan != null ? ngayHetHan : "" %>" readonly>
         </div>
 
-        <input type="submit" class="submit-btn" value="Lưu thông tin">
+        <input type="submit" class="submit-btn" value="Đăng ký">
     </form>
         <%
             String error = "";

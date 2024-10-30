@@ -9,10 +9,10 @@
 <%
     NguoiDung376 user = (NguoiDung376) session.getAttribute("user");
     if(user == null){
-        response.sendRedirect("/BTL/Home.jsp");
+        response.sendRedirect("/BTL/NguoiDung376/Home.jsp");
     }
     else if(!user.getVaiTro().equals("QuanLy")){
-        response.sendRedirect("/BTL/Home.jsp");
+        response.sendRedirect("/BTL/NguoiDung376/Home.jsp");
     }
     else {
 %>
@@ -105,7 +105,7 @@
 <body>
 
 <div class="logout">
-    <a href="/BTL/Logout.jsp">Logout</a>
+    <a href="/BTL/NguoiDung376/Logout.jsp">Logout</a>
 </div>
 <div class="form-container">
     <h2>Chọn Thống Kê</h2>
@@ -114,7 +114,7 @@
         <label for="loaiThongKe">Loại Thống Kê:</label>
         <select id="loaiThongKe" name="loaiThongKe" required>
             <option value="">-- Chọn loại thống kê --</option>
-            <option value="tkncc">Thống kê nhà cung cấp theo số lần nhập</option>
+            <option value="tkncc">Thống kê nhà cung cấp theo số lượng nhập</option>
         </select>
 
         <label for="ngayBatDau">Ngày Bắt Đầu:</label>

@@ -6,10 +6,10 @@
 <%
     NguoiDung376 user = (NguoiDung376) session.getAttribute("user");
     if(user == null){
-        response.sendRedirect("/BTL/Home.jsp");
+        response.sendRedirect("/BTL/NguoiDung376/Home.jsp");
     }
     else if(!user.getVaiTro().equals("QuanLy")){
-        response.sendRedirect("/BTL/Home.jsp");
+        response.sendRedirect("/BTL/NguoiDung376/Home.jsp");
     }
     else {
 %>
@@ -76,7 +76,7 @@
 </head>
 <body>
     <div class="logout">
-        <a href="/BTL/Logout.jsp">Logout</a>
+        <a href="/BTL/NguoiDung376/Logout.jsp">Logout</a>
     </div>
 
     <div class="container">

@@ -85,9 +85,9 @@
 
                         String role = nguoiDung.getVaiTro();
                         if ("QuanLy".equals(role)) {
-                            response.sendRedirect("QuanLy376/GDChinhQuanLy376.jsp");
+                            response.sendRedirect("/BTL/QuanLy376/GDChinhQuanLy376.jsp");
                         } else {
-                            response.sendRedirect("BanDoc376/GDChinhBanDoc376.jsp");
+                            response.sendRedirect("/BTL/BanDoc376/GDChinhBanDoc376.jsp");
                         }
                     } else {
                         error = "Invalid username or password";
