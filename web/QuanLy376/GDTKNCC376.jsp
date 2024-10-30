@@ -1,3 +1,6 @@
+<%@page import="DAO.TKNCC376DAO"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="Model.NguoiDung376"%>
 <%@page import="Model.TKNCC376"%>
 <%@page import="java.util.List"%>
@@ -115,25 +118,64 @@
             font-size: 18px;
             padding: 20px;
         }
+        .logout {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        .logout a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+            font-size: 16px;
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #007bff;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .logout a:hover {
+            background-color: #007bff;
+            color: #fff;
+        }
     </style>
 </head>
 <%
     NguoiDung376 user = (NguoiDung376) session.getAttribute("user");
     if(user == null){
-        response.sendRedirect("/BTL/Home.jsp");
+        response.sendRedirect("/BTL/NguoiDung376/Home.jsp");
     }
     else if(!user.getVaiTro().equals("QuanLy")){
-        response.sendRedirect("/BTL/Home.jsp");
+        response.sendRedirect("/BTL/NguoiDung376/Home.jsp");
     }
-    String ngayBatDauStr = session.getAttribute("ngayBatDau").toString();
-    String ngayketThucStr = session.getAttribute("ngayKetThuc").toString();
+    String ngayBatDauStr = session.getAttribute("ngayBatDau") != null ? session.getAttribute("ngayBatDau").toString() : "";
+    String ngayKetThucStr = session.getAttribute("ngayKetThuc") != null ? session.getAttribute("ngayKetThuc").toString() : "";
+
+    if("POST".equalsIgnoreCase(request.getMethod())){
+        ngayBatDauStr = request.getParameter("ngayBatDau");
+        ngayKetThucStr = request.getParameter("ngayKetThuc");
+        session.setAttribute("ngayBatDau", ngayBatDauStr);
+        session.setAttribute("ngayKetThuc", ngayKetThucStr);
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        java.util.Date utilNgayBatDau = dateFormat.parse(ngayBatDauStr);  
+        java.sql.Date ngayBatDau = new java.sql.Date(utilNgayBatDau.getTime());  
+
+        java.util.Date utilNgayKetThuc= dateFormat.parse(ngayKetThucStr);  
+        java.sql.Date ngayKetThuc = new java.sql.Date(utilNgayKetThuc.getTime());  
+
+        ArrayList<TKNCC376> listTKNCC = new TKNCC376DAO().getTKNCC(ngayBatDau, ngayKetThuc);
+        session.setAttribute("listTKNCC", listTKNCC);
+    }
 %>
 <body>
-
+<div class="logout">
+    <a href="/BTL/NguoiDung376/Logout.jsp">Logout</a>
+</div>
 <div class="container">
     <h2>Thống Kê Nhà Cung Cấp</h2>
 
-    <form action="..\\TKNCC376Controller" method="GET">
+    <form action="GDTKNCC376.jsp" method="POST">
         <div class="input-container">
             <label for="startDate">Ngày Bắt Đầu:</label>
             <input type="date" id="startDate" name="ngayBatDau" 
@@ -142,7 +184,7 @@
         <div class="input-container">
             <label for="endDate">Ngày Kết Thúc:</label>
             <input type="date" id="endDate" name="ngayKetThuc" 
-                   value="<%= ngayketThucStr != null ? ngayketThucStr : "" %>">
+                   value="<%= ngayKetThucStr != null ? ngayKetThucStr : "" %>">
         </div>
         <button type="submit">Tải Lại Thống Kê</button>
     </form>
@@ -158,7 +200,6 @@
         </thead>
         <tbody>
             <%
-                // Lấy danh sách từ session
                 List<TKNCC376> listTKNCC = (List<TKNCC376>) session.getAttribute("listTKNCC");
                 if (listTKNCC != null && !listTKNCC.isEmpty()) {
                     for (TKNCC376 ncc : listTKNCC) {
@@ -166,7 +207,7 @@
             <tr>
                 <td><%= ncc.getId() %></td>
                 <td>
-                    <a href="..\\NCC376Controller?id=<%= ncc.getId() %>">
+                    <a href="GDNCC376.jsp?id=<%= ncc.getId() %>">
                         <%= ncc.getTenNCC() %>
                         <%
                             session.setAttribute("tkncc" + ncc.getId(), ncc);

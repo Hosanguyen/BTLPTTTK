@@ -3,8 +3,6 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/PC/Documents/Y4/PTTK/Code/BTL/src/java/Controller/DangKy376Controller.java</file>
-            <file>file:/C:/Users/PC/Documents/Y4/PTTK/Code/BTL/src/java/Controller/TKNCC376Controller.java</file>
             <file>file:/C:/Users/PC/Documents/Y4/PTTK/Code/BTL/src/java/DAO/DAO.java</file>
             <file>file:/C:/Users/PC/Documents/Y4/PTTK/Code/BTL/web/QuanLy376/GDTKNCC376.jsp</file>
             <file>file:/C:/Users/PC/Documents/Y4/PTTK/Code/BTL/src/java/Model/NguoiDung376.java</file>
@@ -19,10 +17,8 @@
             <file>file:/C:/Users/PC/Documents/Y4/PTTK/Code/BTL/src/java/DAO/LoginDAO.java</file>
             <file>file:/C:/Users/PC/Documents/Y4/PTTK/Code/BTL/web/QuanLy376/GDNCC376.jsp</file>
             <file>file:/C:/Users/PC/Documents/Y4/PTTK/Code/BTL/src/conf/MANIFEST.MF</file>
-            <file>file:/C:/Users/PC/Documents/Y4/PTTK/Code/BTL/src/java/Controller/HoaDon376Controller.java</file>
             <file>file:/C:/Users/PC/Documents/Y4/PTTK/Code/BTL/src/java/Model/NCC376.java</file>
             <file>file:/C:/Users/PC/Documents/Y4/PTTK/Code/BTL/src/java/Model/HoaDon376.java</file>
-            <file>file:/C:/Users/PC/Documents/Y4/PTTK/Code/BTL/src/java/Controller/NCC376Controller.java</file>
             <file>file:/C:/Users/PC/Documents/Y4/PTTK/Code/BTL/src/java/DAO/TheBanDoc376DAO.java</file>
             <file>file:/C:/Users/PC/Documents/Y4/PTTK/Code/BTL/src/java/DAO/TKNCC376DAO.java</file>
             <file>file:/C:/Users/PC/Documents/Y4/PTTK/Code/BTL/src/java/Model/TaiLieuNhap376.java</file>
@@ -36,7 +32,6 @@
             <file>file:/C:/Users/PC/Documents/Y4/PTTK/Code/BTL/web/BanDoc376/GDChinhBanDoc376.jsp</file>
             <file>file:/C:/Users/PC/Documents/Y4/PTTK/Code/BTL/src/java/Model/TaiLieu376.java</file>
             <file>file:/C:/Users/PC/Documents/Y4/PTTK/Code/BTL/src/java/Model/NhanVienThuVien376.java</file>
-            <file>file:/C:/Users/PC/Documents/Y4/PTTK/Code/BTL/src/java/Controller/LoginController.java</file>
         </group>
     </open-files>
 </project-private>

@@ -18,6 +18,11 @@ public class NguoiDung376 {
     private String diaChi;
     private String vaiTro;
 
+    public NguoiDung376(String tenDangNhap, String matKhau){
+        this.tenDangNhap = tenDangNhap;
+        this.matKhau = matKhau;
+    }
+    
     public NguoiDung376(int id, String tenDangNhap, String matKhau, String hoTen, String sdt, String email, String diaChi, String vaiTro) {
         this.id = id;
         this.tenDangNhap = tenDangNhap;

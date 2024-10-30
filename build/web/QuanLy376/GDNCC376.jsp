@@ -1,3 +1,6 @@
+<%@page import="Model.NguoiDung376"%>
+<%@page import="DAO.HoaDon376DAO"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="java.text.DecimalFormat"%>
 <%@page import="Model.HoaDon376"%>
 <%@page import="Model.NCC376"%>
@@ -117,27 +120,59 @@
             font-size: 18px;
             padding: 20px;
         }
+        .logout {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        .logout a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+            font-size: 16px;
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #007bff;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .logout a:hover {
+            background-color: #007bff;
+            color: #fff;
+        }
     </style>
 </head>
 <body>
 
 <%
-    NCC376 ncc = (NCC376)session.getAttribute("ncc");
-    if(ncc == null){
-        response.sendRedirect("/BTL/Home.jsp");
+    NguoiDung376 user = (NguoiDung376)session.getAttribute("user");
+    if(user == null){
+        response.sendRedirect("/BTL/NguoiDung376/Home.jsp");
+    }
+    else if (!user.getVaiTro().equals("QuanLy")){
+        response.sendRedirect("/BTL/NguoiDung376/Home.jsp");
+    }
+    int id = Integer.parseInt(request.getParameter("id"));
+    TKNCC376 tkncc = (TKNCC376)session.getAttribute("tkncc" + id);
+    if(tkncc == null){
+        response.sendRedirect("/BTL/NguoiDung376/Home.jsp");
     }
     else{
         String ngayBatDauStr = session.getAttribute("ngayBatDau").toString();
         String ngayketThucStr = session.getAttribute("ngayKetThuc").toString();
-
+        
+        ArrayList<HoaDon376> listHoaDon = new HoaDon376DAO().getAllHoaDon(tkncc);
 %>
     
+<div class="logout">
+    <a href="/BTL/NguoiDung376/Logout.jsp">Logout</a>
+</div>
 <div class="container">
     <h2>Thống Kê Chi Tiết Nhà Cung Cấp</h2>
 
     <form action="TKNCC376Controller" method="GET">
         <div class="input-container">
-            <label for="startDate">Nhà cung cấp: <%= ncc.getTenNCC()%></label>
+            <label for="startDate">Nhà cung cấp: <%= tkncc.getTenNCC()%></label>
         </div>
         <div class="input-container">
             <label for="startDate">Ngày Bắt Đầu:</label>
@@ -150,9 +185,7 @@
                    value="<%= ngayketThucStr != null ? ngayketThucStr : "" %>" readonly>
         </div>
     </form>
-<%
-    }
-%>
+
     <table>
         <thead>
             <tr>
@@ -167,7 +200,6 @@
         <tbody>
             <%
                 // Lấy danh sách từ session
-                List<HoaDon376> listHoaDon = (List<HoaDon376>) session.getAttribute("listHoaDon");
                 DecimalFormat df = new DecimalFormat("#,###.00");
                 if (listHoaDon != null && !listHoaDon.isEmpty()) {
                     int idx = 0;
@@ -181,7 +213,10 @@
                 <td><%= hoaDon.getTongSoLuong()%></td>
                 <td><%= df.format(hoaDon.getTongGia())%></td>
                 <td>
-                    <a href="..\\HoaDon376Controller?id=<%= hoaDon.getId()%>&lanNhap=<%= idx%>&ngayNhap=<%= hoaDon.getNgayNhap()%>">Xem chi tiết</a>
+                    <%
+                        session.setAttribute("hoaDon" + hoaDon.getId(), hoaDon);
+                    %>
+                    <a href="GDHoaDon376.jsp?id=<%= hoaDon.getId()%>&lanNhap=<%= idx%>&ngayNhap=<%= hoaDon.getNgayNhap()%>">Xem chi tiết</a>
                 </td>
             </tr>
             <%
@@ -197,6 +232,8 @@
         </tbody>
     </table>
 </div>
-
+<%
+    }
+%>
 </body>
 </html>
